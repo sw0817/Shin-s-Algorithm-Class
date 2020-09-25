@@ -42,5 +42,5 @@ for tc in range(1, 11):
         if visited[maxI] == visited[j]:
             if result < j:
                 result = j
-                
+
     print('#{} {}'.format(tc, result))
