@@ -59,5 +59,5 @@ for tc in range(1, T+1):
         for j in range(N):
             if type(G[i][j]) == int and 0 < G[i][j] < 9:
                 result += 1
-                
+
     print('#{} {}'.format(tc, result))
