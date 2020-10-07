@@ -34,6 +34,6 @@ for tc in range(1, 11):
             if len(r_list[i]) == 0 and visited[i] == 0:
                 result.append(i)
                 visited[i] = 1
-                
+
     print('#{}'.format(tc), end=' ')
     print(*result)
