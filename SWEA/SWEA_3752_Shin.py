@@ -10,7 +10,7 @@
 T = int(input())
 
 for tc in range(1, T+1):
-    
+
     N = int(input())
     scores = list(map(int, input().split()))
     visited = [1] + [0] * sum(scores)
