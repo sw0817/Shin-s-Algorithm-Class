@@ -38,6 +38,6 @@ for i in range(N+1):
         arr[i][0], arr[i][1] = arr[i][1], x
 for i in range(N):
     ans += move(i, N)
-    
+
 print(arr)
 print(ans)
