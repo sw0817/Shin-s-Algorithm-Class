@@ -22,5 +22,5 @@ for _ in range(M+K):
         cnt = 0
         for i in range(c-b+1):
             cnt += nums[i+b-1]
-            
+
         print(cnt)
