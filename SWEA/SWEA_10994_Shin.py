@@ -32,4 +32,4 @@ for tc in range(1, T+1):
     for i in range(idx, -1, -1):
         pass
 
-    # 미완
+    # 미완완
