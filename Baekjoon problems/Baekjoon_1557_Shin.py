@@ -1,3 +1,12 @@
+# 백준 1557 제곱ㄴㄴ
+# Baekjoon 1557
+
+# Created by sw0817 on 2020. 12. 15..
+# Copyright © 2020 sw0817. All rights reserved.
+
+# See : https://www.acmicpc.net/problem/1557
+
+
 # 1부터 num까지의 제곱ㄴㄴ수의 갯수를 리턴
 def found(num):
     res = 0
