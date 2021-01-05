@@ -14,7 +14,6 @@ from math import log2
 V, E = map(int, stdin.readline().split())
 
 edges = []
-must = []
 
 weight = 0
 
@@ -57,7 +56,6 @@ def kruskal():
     for v, u, w in kru_edges:
         if find(v) != find(u):
             union(v, u)
-            must.append([v, u, w])
             adj[v].append([u, w])
             adj[u].append([v, w])
             weight += w
@@ -70,14 +68,9 @@ mst = [False] * (V+1)
 
 kruskal()
 
-print(parent)
-print(rank)
-
-
-
 queue = deque()
-queue.append(4)
-mst[4] = True
+queue.append(1)
+mst[1] = True
 while queue:
     v = queue.popleft()
     for v2, w in adj[v]:
@@ -87,8 +80,6 @@ while queue:
             mst[v2] = True
             mst_list[v2][0] = v
             mst_list[v2][1] = w
-
-print(depth)
 
 DP = [[[0, 0] for _ in range(logV)] for _ in range(V+1)]
 
@@ -102,31 +93,28 @@ for j in range(1, logV):
         DP[i][j][1] = max(DP[i][j-1][1], DP[DP[i][j-1][0]][j-1][1])
 
 for edge in edges:
-    if edge in must:
-        print(weight)
+
+    D, E = edge[0], edge[1]
+    if depth[D] < depth[E]:
+        D, E = E, D
+
+    dif = depth[D] - depth[E]
+    longest = 0
+
+    for i in range(logV):
+        if dif & 1 << i:
+            longest = max(longest, DP[D][i][1])
+            D = DP[D][i][0]
+
+    if D == E:
+        print(weight - longest + edge[2])
 
     else:
-        D, E = edge[0], edge[1]
-        if depth[D] < depth[E]:
-            D, E = E, D
-
-        dif = depth[D] - depth[E]
-        longest = 0
-
-        for i in range(logV):
-            if dif & 1 << i:
-                longest = max(longest, DP[D][i][1])
+        for i in range(logV-1, -1, -1):
+            if DP[D][i][0] != DP[E][i][0]:
+                longest = max(longest, DP[D][i][1], DP[E][i][1])
                 D = DP[D][i][0]
+                E = DP[E][i][0]
 
-        if D == E:
-            print(weight - longest + edge[2])
-
-        else:
-            for i in range(logV-1, -1, -1):
-                if DP[D][i][0] != DP[E][i][0]:
-                    longest = max(longest, DP[D][i][1], DP[E][i][1])
-                    D = DP[D][i][0]
-                    E = DP[E][i][0]
-
-            longest = max(longest, DP[D][i][1], DP[E][i][1])
-            print(weight - longest + edge[2])
+        longest = max(longest, DP[D][i][1], DP[E][i][1])
+        print(weight - longest + edge[2])
