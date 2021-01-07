@@ -1,7 +1,7 @@
 # 백준 1197 최소 스패닝 트리
 # Baekjoon 1197
 
-# Created by sw0817 on 2020. 01. 02..
+# Created by sw0817 on 2021. 01. 02..
 # Copyright © 2020 sw0817. All rights reserved.
 
 # See : https://www.acmicpc.net/problem/1197

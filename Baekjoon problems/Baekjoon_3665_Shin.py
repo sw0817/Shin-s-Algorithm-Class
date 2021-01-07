@@ -1,7 +1,7 @@
 # 백준 3665 최종 순위
 # Baekjoon 3665
 
-# Created by sw0817 on 2020. 01. 01..
+# Created by sw0817 on 2021. 01. 01..
 # Copyright © 2020 sw0817. All rights reserved.
 
 # See : https://www.acmicpc.net/problem/3665

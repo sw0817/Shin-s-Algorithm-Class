@@ -1,7 +1,7 @@
 # 백준 15481 그래프와 MST
 # Baekjoon 15481
 
-# Created by sw0817 on 2020. 01. 04..
+# Created by sw0817 on 2021. 01. 04..
 # Copyright © 2020 sw0817. All rights reserved.
 
 # See : https://www.acmicpc.net/problem/15481

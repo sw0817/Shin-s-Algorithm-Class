@@ -1,7 +1,7 @@
 # 백준 2562 최댓값
 # Baekjoon 2562
 
-# Created by sw0817 on 2020. 01. 06..
+# Created by sw0817 on 2021. 01. 06..
 # Copyright © 2020 sw0817. All rights reserved.
 
 # See : https://www.acmicpc.net/problem/2562
