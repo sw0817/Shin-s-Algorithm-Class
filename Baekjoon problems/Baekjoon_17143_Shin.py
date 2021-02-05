@@ -6,69 +6,70 @@
 
 # See : https://www.acmicpc.net/problem/17143
 
-move = [0, (-1, 0), (1, 0), (0, 1), (0, -1)]
-
 R, C, M = map(int, input().split())
 sharks = []
 
 for _ in range(M):
     r, c, s, d, z = map(int, input().split())
-    if d == 1 or 2:
-        s = s % (2*(R-1))
-    else:
-        s = s % (2*(C-1))
-    sharks.append((r, c, s, d, z))
+    sharks.append((r-1, c-1, s, d, z))
 
-step = 0
+step = -1
 result = 0
 
 while step < C and len(sharks):
     sharks.sort()
     step += 1
     for shark in sharks:
-        if shark[0] == step:
+        if shark[1] == step:
             result += shark[4]
             sharks.remove(shark)
             break
+
     shark_rc = []
     idx = 0
-    while idx < len(sharks) - 1:
+    while idx < len(sharks):
         r, c, s, d, z = sharks[idx]
         if d == 1:
-            if s <= r:
-                r -= s
+            if ((R-1-r+s) // (R-1)) % 2:
+                d = 2
+                r = ((R-1-r+s) % (R-1))
             else:
-                if s-r <= R-1:
-                    r = s-r
-                else:
-                    r = 2*(R-1) - (s-r)
+                r = (R-1) - ((R-1-r+s) % (R-1))
+
         elif d == 2:
-            if r+s <= (R-1):
-                r += s
+            if ((r+s) // (R-1)) % 2:
+                d = 1
+                r = (R-1) - ((r+s) % (R-1))
             else:
-                if 2*(R-1) < r+s:
-                    r = r+s - (2*(R-1))
-                else:
-                    r = (2*(R-1)) - (r+s)
+                r = ((r+s) % (R-1))
+
         elif d == 3:
-            if s <= c:
-                c -= s
+            if ((c+s) // (C-1)) % 2:
+                d = 4
+                c = (C-1) - ((c+s) % (C-1))
             else:
-                if s - c <= C - 1:
-                    c = s - c
-                else:
-                    c = 2 * (C - 1) - (s - c)
+                c = ((c+s) % (C-1))
+
         else:
-            if c+s <= (C-1):
-                c += s
+            if ((C-1-c+s) // (C-1)) % 2:
+                d = 3
+                c = ((C-1-c+s) % (C-1))
             else:
-                if 2*(C-1) < c+s:
-                    c = c+s - (2*(C-1))
-                else:
-                    c = (2*(C-1)) - (c+s)
+                c = (C-1) - ((C-1-c+s) % (C-1))
 
         if not (r, c) in shark_rc:
             shark_rc.append((r, c))
+            sharks[idx] = (r, c, s, d, z)
+            idx += 1
         else:
             for i in range(len(shark_rc)):
                 if shark_rc[i] == (r, c):
+                    if sharks[i][4] < sharks[idx][4]:
+                        del sharks[i]
+                        del shark_rc[i]
+                        shark_rc.append((r, c))
+                    else:
+                        del sharks[idx]
+                    break
+
+print(result)
