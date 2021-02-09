@@ -1,7 +1,7 @@
 # 백준 1520 내리막 길
 # Baekjoon 1520
 
-# Created by sw0817 on 2021. 02. 08..
+# Created by sw0817 on 2021. 02. 09..
 # Copyright © 2020 sw0817. All rights reserved.
 
 # See : https://www.acmicpc.net/problem/1520
