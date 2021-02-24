@@ -6,8 +6,6 @@
 
 # See : https://www.acmicpc.net/problem/2212
 
-from itertools import combinations
-
 N = int(input())
 K = int(input())
 
