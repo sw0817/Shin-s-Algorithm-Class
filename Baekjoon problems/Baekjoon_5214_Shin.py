@@ -9,42 +9,31 @@
 from collections import deque
 
 def check():
-    if N == 1:
-        return 1
-
-    if N in adj[1]:
-        return 2
-
-    else:
-        queue = deque()
-        cnt = 2
-        visited = [0] * (N + 1)
-        visited[1] = 1
-        for st in adj[1]:
-            queue.append(st)
-            visited[st] = 1
-
-        while queue:
-            cnt += 1
-            for _ in range(len(queue)):
-                v = queue.popleft()
-                for w in adj[v]:
-                    if not visited[w]:
-                        if w == N:
-                            return cnt
-                        visited[w] = 1
-                        queue.append(w)
-
-        return -1
+    queue = deque()
+    queue.append(0)
+    c[0] = 1
+    while queue:
+        x = queue.popleft()
+        if x == N-1:
+            return c[x]
+        for v in adj[x]:
+            if not c[v]:
+                if v >= N:
+                    c[v] = c[x]
+                    queue.append(v)
+                else:
+                    c[v] = c[x] + 1
+                    queue.append(v)
+    return -1
 
 
 N, K, M = map(int, input().split())
-adj = [[] for _ in range(N+1)]
+adj = [[] for _ in range(N+M)]
+c = [0] * (N+M)
 for _ in range(M):
     info = list(map(int, input().split()))
-    for i in range(K-1):
-        for j in info[i+1:]:
-            adj[info[i]].append(j)
-            adj[j].append(info[i])
+    for i in range(K):
+        adj[info[i]-1].append(N+i)
+        adj[N+i].append(info[i]-1)
 
 print(check())
