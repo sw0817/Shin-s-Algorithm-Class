@@ -30,10 +30,10 @@ def check():
 N, K, M = map(int, input().split())
 adj = [[] for _ in range(N+M)]
 c = [0] * (N+M)
-for _ in range(M):
+for i in range(M):
     info = list(map(int, input().split()))
-    for i in range(K):
-        adj[info[i]-1].append(N+i)
-        adj[N+i].append(info[i]-1)
+    for j in range(K):
+        adj[info[j]-1].append(N+i)
+        adj[N+i].append(info[j]-1)
 
 print(check())
