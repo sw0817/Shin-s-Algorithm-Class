@@ -27,5 +27,5 @@ for tc in range(T):
             # 새로운 m은 i가 1작고 j가 m // 2 인 경우에 가능
             dp[i][j] = dp[i-1][j//2] + dp[i][j-1]
 
-    # 해당 조건 dp 출력력
+    # 해당 조건 dp 출력
     print(dp[n-1][m])
