@@ -6,55 +6,32 @@
 
 # See : https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXWXMZta-PsDFAST&categoryId=AXWXMZta-PsDFAST&categoryType=CODE&problemTitle=%EB%AC%BC%EB%86%80%EC%9D%B4&orderBy=FIRST_REG_DATETIME&selectCodeLang=ALL&select-1=&pageSize=10&pageIndex=1
 
+from collections import deque
+
+move = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+
 T = int(input())
-for test_case in range(1, T + 1):
-    print('#{}'.format(test_case), end=' ')
+for tc in range(1, T+1):
+    M, N = map(int, input().split())
+    visited = [[-1] * N for _ in range(M)]
+    queue = deque()
+    for i in range(M):
+        row = input()
+        for j in range(N):
+            if row[j] == 'W':
+                visited[i][j] = 0
+                queue.append((i, j))
 
-    N, M = map(int, input().split())
-    WL_map = []
-    for i in range(N):
-        WL_map += [input()]
+    ans = 0
+    while queue:
+        r, c = queue.popleft()
+        for dr, dc in move:
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < M and 0 <= nc < N and visited[nr][nc] == -1:
+                visited[nr][nc] = visited[r][c] + 1
+                queue.append((nr, nc))
 
-    count = []
-    location = []
-    for i in range(N):
-        count.append([])
-        for j in range(M):
-            if WL_map[i][j] == 'W':
-                count[i] += [0]
-                location += [(i, j)]
-            else:
-                count[i] += [-1]
-    loop = 0
-    l_num = N * M - len(location)
-    loop_num = 1
-    while loop < l_num:
-        temp = []
-        for item in location:
-            if item[0] > 0:
-                if count[item[0] - 1][item[1]] == -1:
-                    loop += 1
-                    count[item[0] - 1][item[1]] = loop_num
-                    temp += [(item[0] - 1, item[1])]
-            if item[0] < N - 1:
-                if count[item[0] + 1][item[1]] == -1:
-                    loop += 1
-                    count[item[0] + 1][item[1]] = loop_num
-                    temp += [(item[0] + 1, item[1])]
-            if item[1] > 0:
-                if count[item[0]][item[1] - 1] == -1:
-                    loop += 1
-                    count[item[0]][item[1] - 1] = loop_num
-                    temp += [(item[0], item[1] - 1)]
-            if item[1] < M - 1:
-                if count[item[0]][item[1] + 1] == -1:
-                    loop += 1
-                    count[item[0]][item[1] + 1] = loop_num
-                    temp += [(item[0], item[1] + 1)]
-        location = temp
-        loop_num += 1
+    for row in visited:
+        ans += sum(row)
 
-    result = 0
-    for i in count:
-        result += sum(i)
-    print(result)
+    print('#{} {}'.format(tc, ans))
