@@ -45,8 +45,8 @@ depth = [-1] * (N+1)
 # 최대 깊이
 max_depth = floor(log2(N+1))
 
-# x의 2^y번째 조상 여기서 17은 log2(100001) 내림
-dp = [[0] * 17 for _ in range(N+1)]
+# x의 2^y번째 조상
+dp = [[0] * (max_depth+1) for _ in range(N+1)]
 
 for _ in range(N-1):
     n1, n2 = map(int, input().split())
