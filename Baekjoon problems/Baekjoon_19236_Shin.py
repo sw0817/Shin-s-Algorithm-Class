@@ -93,5 +93,3 @@ result = 0
 eat_fish(arr, 0, 0, 0)
 
 print(result)
-
-
