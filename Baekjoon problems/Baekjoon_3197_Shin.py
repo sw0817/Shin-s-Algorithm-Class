@@ -1,30 +1,83 @@
-# 백준 10251 운전 면허 시험
-# Baekjoon 10251
+# 백준 3197 백조의 호수
+# Baekjoon 3197
 
-# Created by sw0817 on 2021. 03. 15..
+# Created by sw0817 on 2021. 04. 17..
 # Copyright © 2020 sw0817. All rights reserved.
 
-# See : https://www.acmicpc.net/problem/10251
+# See : https://www.acmicpc.net/problem/3197
 
-n = int(input())
-word = [list(map(lambda x: ord(x)-65, input())) for _ in range(n)]
-al = [0] * 26
+from _collections import deque
 
-for i in range(n):
-    num = 0
-    for j in word[i][::-1]:
-        al[j] += (10 ** num)
-        num += 1
+move = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 
-al.sort(reverse=True)
+def bfs():
+    while queue:
+        r, c = queue.popleft()
+        if r == r2 and c == c2:
+            return 1
+        for dr, dc in move:
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < R and 0 <= nc < C:
+                if not b[nr][nc]:
+                    if arr[nr][nc] == '.':
+                        queue.append([nr, nc])
+                    else:
+                        temp_queue.append([nr, nc])
+                    b[nr][nc] = 1
+    return 0
 
-ans = 0
-num = 9
-idx = 0
 
-while al[idx] and idx < 26:
-    ans += al[idx] * num
-    idx += 1
-    num -= 1
+def melt():
+    while wQueue:
+        r, c = wQueue.popleft()
+        if arr[r][c] == 'X':
+            arr[r][c] = '.'
 
-print(ans)
+        for dr, dc in move:
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < R and 0 <= nc < C:
+                if not wb[nr][nc]:
+                    if arr[nr][nc] == 'X':
+                        temp_wQueue.append([nr, nc])
+                    else:
+                        wQueue.append([nr, nc])
+                    wb[nr][nc] = 1
+
+
+R, C = map(int, input().split())
+b = [[0] * C for _ in range(R)]
+wb = [[0] * C for _ in range(R)]
+
+arr = []
+swan = []
+
+queue = deque()
+temp_queue = deque()
+wQueue = deque()
+temp_wQueue = deque()
+
+for i in range(R):
+    row = list(input())
+    arr.append(row)
+    for j in range(C):
+        if row[j] == 'L':
+            swan.extend([i, j])
+            wQueue.append([i, j])
+        elif row[j] == '.':
+            wb[i][j] = 1
+            wQueue.append([i, j])
+
+r1, c1, r2, c2 = swan
+
+queue.append([r1, c1])
+arr[r1][c1], arr[r2][c2], b[r1][c1] = '.', '.', 1
+cnt = 0
+
+while True:
+    melt()
+    if bfs():
+        print(cnt)
+        break
+    queue, wQueue = temp_queue, temp_wQueue
+    temp_queue, temp_wQueue = deque(), deque()
+    cnt += 1
