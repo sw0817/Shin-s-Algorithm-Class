@@ -2,7 +2,7 @@
 # Baekjoon 1005
 
 # Created by sw0817 on 2021. 06. 17..
-# Copyright © 2020 sw0817. All rights reserved.
+# Copyright © 2021 sw0817. All rights reserved.
 
 # See : https://www.acmicpc.net/problem/1005
 

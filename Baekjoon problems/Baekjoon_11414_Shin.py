@@ -2,7 +2,7 @@
 # Baekjoon 12013
 
 # Created by sw0817 on 2021. 04. 18..
-# Copyright © 2020 sw0817. All rights reserved.
+# Copyright © 2021 sw0817. All rights reserved.
 
 # See : https://www.acmicpc.net/problem/12013
 

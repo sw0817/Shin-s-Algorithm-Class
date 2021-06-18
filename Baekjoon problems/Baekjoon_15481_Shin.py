@@ -2,7 +2,7 @@
 # Baekjoon 15481
 
 # Created by sw0817 on 2021. 01. 04..
-# Copyright © 2020 sw0817. All rights reserved.
+# Copyright © 2021 sw0817. All rights reserved.
 
 # See : https://www.acmicpc.net/problem/15481
 

@@ -2,7 +2,7 @@
 # Baekjoon 1992
 
 # Created by sw0817 on 2021. 01. 26..
-# Copyright © 2020 sw0817. All rights reserved.
+# Copyright © 2021 sw0817. All rights reserved.
 
 # See : https://www.acmicpc.net/problem/1992
 
