@@ -1,7 +1,7 @@
 # 백준 11066 파일 합치기
 # Baekjoon 11066
 
-# Created by sw0817 on 2021. 06. 28..
+# Created by sw0817 on 2021. 06. 29..
 # Copyright © 2021 sw0817. All rights reserved.
 
 # See : https://www.acmicpc.net/problem/11066
@@ -24,7 +24,7 @@ for _ in range(T):
             end = start + btw
             if end == N:
                 break
-            dp[start][end] = 10000
+            dp[start][end] = 99999999999
             for i in range(start, end):
                 dp[start][end] = min(dp[start][end], dp[start][i] + dp[i+1][end] + sum_list[end+1] - sum_list[start])
 
