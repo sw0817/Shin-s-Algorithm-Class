@@ -41,6 +41,8 @@ N, R, D, X, Y = map(int, input().split())
 #
 # print(round(result, 3))
 
+###########
+
 move = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 
 arr = [[0] * 1001 for _ in range(1001)]
