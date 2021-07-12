@@ -1,37 +1,25 @@
-# 백준 2629 양팔저울
-# Baekjoon 2629
+# 백준 1231 주식왕 동호
+# Baekjoon 1231
 
-# Created by sw0817 on 2021. 03. 28..
+# Created by sw0817 on 2021. 07. 12..
 # Copyright © 2021 sw0817. All rights reserved.
 
-# See : https://www.acmicpc.net/problem/2629
+# See : https://www.acmicpc.net/problem/1231
 
-input()
-weights = list(map(int, input().split()))
-input()
-beads = list(map(int, input().split()))
+C, D, M = map(int, input().split())
+arr = [list(map(int, input().split())) for _ in range(C)]
+result = [i for i in range(500001)]
 
-l = sum(weights) + 1
-visited = [0] * l
-visited[0] = 1
+for j in range(1, D):
+    for i in range(C):
+        prev = arr[i][j-1]
+        price = arr[i][j]
+        for k in range(prev, M+1):
+            temp = result[k-prev] + price
+            if result[k] < temp:
+                result[k] = temp
+    M = result[M]
+    for i in range(M+1):
+        result[i] = i
 
-for weight in weights:
-    for i, cur in enumerate(visited[:]):
-        if cur:
-            if i+weight < l and not visited[i+weight]:
-                visited[i+weight] = 1
-
-for weight in weights:
-    for i, cur in enumerate(visited[:]):
-        if cur:
-            if 0 <= i-weight and not visited[i-weight]:
-                visited[i-weight] = 1
-
-for bead in beads:
-    if len(visited) <= bead:
-        print('N', end=' ')
-    else:
-        if visited[bead]:
-            print('Y', end=' ')
-        else:
-            print('N', end=' ')
+print(M)
