@@ -14,12 +14,8 @@ def preOrder(inLeft, inRight, postLeft, postRight):
         parent = postOrder[postRight]
         print(parent, end=" ")
         pIdx = inPos[parent]
-
-        left = pIdx - inLeft
-        right = inRight - pIdx
-
-        preOrder(inLeft, inLeft+left-1, postLeft, postLeft+left-1) # 부모 노드 기준 왼쪽
-        preOrder(inRight-right+1, inRight, postRight-right, postRight-1)
+        preOrder(inLeft, pIdx-1, postLeft, postLeft+pIdx-inLeft-1) # 부모 노드 기준 왼쪽
+        preOrder(pIdx+1, inRight, postRight+pIdx-inRight, postRight-1)
 
 
 setrecursionlimit(10 ** 6)
