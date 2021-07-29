@@ -18,12 +18,8 @@ def cal(day, late, absent):
     if dp[day][late][absent] != 0:
         return dp[day][late][absent]
 
-    # 다음 출석
-    dp[day][late][absent] += cal(day+1, late, 0)
-    # 다음 지각
-    dp[day][late][absent] += cal(day+1, late+1, 0)
-    # 다음 결석
-    dp[day][late][absent] += cal(day+1, late, absent+1)
+    # 다음 출석, 다음 지각, 다음 결석
+    dp[day][late][absent] += cal(day+1, late, 0) + cal(day+1, late+1, 0) + cal(day+1, late, absent+1)
 
     return dp[day][late][absent] % 1000000
 
