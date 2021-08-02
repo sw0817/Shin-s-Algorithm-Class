@@ -1,7 +1,7 @@
 # 백준 1938 통나무 옮기기
 # Baekjoon 1938
 
-# Created by sw0817 on 2021. 02. 19..
+# Created by sw0817 on 2021. 08. 02..
 # Copyright © 2020 sw0817. All rights reserved.
 
 # See : https://www.acmicpc.net/problem/1938
