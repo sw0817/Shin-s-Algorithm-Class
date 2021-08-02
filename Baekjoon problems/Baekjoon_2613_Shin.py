@@ -1,7 +1,7 @@
 # 백준 2613 숫자구슬
 # Baekjoon 2613
 
-# Created by sw0817 on 2021. 08. 02..
+# Created by sw0817 on 2021. 08. 03..
 # Copyright © 2020 sw0817. All rights reserved.
 
 # See : https://www.acmicpc.net/problem/2613
@@ -95,29 +95,56 @@ def countBead(mid):
         l += 1
 
     # print(cntList)
-    idx = 0
+    # idx = 0
+    idx = l
+    # 오른쪽부터 쪼개기
+    cnt = l
+    backList = []
     if l < M:
-        cnt = l
-        idx = l
-        for i in range(l):
+        # # 왼쪽부터 쪼개기
+        # cnt = l
+        # idx = l
+        # for i in range(l):
+        #     if cntList[i] == 1:
+        #         print(1, end=' ')
+        #     else:
+        #         if cnt + cntList[i] - 1 <= M:
+        #             cnt += cntList[i] - 1
+        #             for _ in range(cntList[i]):
+        #                 print(1, end=' ')
+        #         else:
+        #             if cnt == M:
+        #                 idx = i
+        #                 break
+        #             for _ in range((cnt + cntList[i] - 1) - M):
+        #                 print(1, end=' ')
+        #             print(M + 1 - cnt, end=' ')
+        #             idx = i + 1
+        #             break
+
+        for i in range(l-1, -1, -1):
             if cntList[i] == 1:
-                print(1, end=' ')
+                backList.insert(0, 1)
             else:
                 if cnt + cntList[i] - 1 <= M:
+                    backList = [1] * cntList[i] + backList
                     cnt += cntList[i] - 1
-                    for _ in range(cntList[i]):
-                        print(1, end=' ')
-                else:
                     if cnt == M:
                         idx = i
                         break
-                    for _ in range((cnt + cntList[i] - 1) - M):
-                        print(1, end=' ')
-                    print(M + 1 - cnt, end=' ')
-                    idx = i + 1
+                else:
+                    idx = i
+                    while cntList[i] != 1:
+                        cntList[i] -= 1
+                        backList.insert(0, 1)
+                        cnt += 1
+                        if cnt == M:
+                            backList.insert(0, cntList[i])
+                            break
                     break
-    if idx != N:
-        print(*cntList[idx:])
+
+    # print(*cntList[idx:])
+    print(*cntList[:idx]+backList)
 
 
 countBead(final)
