@@ -1,35 +1,43 @@
 # 백준 1029 그림 교환
 # Baekjoon 1029
 
-# Created by sw0817 on 2020. 12. 04..
-# Copyright © 2020 sw0817. All rights reserved.
+# Created by sw0817 on 2021. 08. 08..
+# Copyright © 2021 sw0817. All rights reserved.
 
 # See : https://www.acmicpc.net/problem/1029
 
-def sell(price, num, idx):
-    global people
-    if num > people:
-        people = num
+from sys import stdin
 
-    for i in range(N):
-        if i != idx and not visited[i] and price <= prices[idx][i]:
-            visited[i] = 1
-            sell(prices[idx][i], num+1, i)
-            visited[i] = 0
+# 상태, 번호, 비용
+def dfs(num, state, cost):
+    result = dp[num][state][cost]
+
+    if state == 1 << N - 1:
+        return result
+
+    if result:
+        return result
+
+    for i in range(1, N):
+        temp = state | (1 << i)
+        # i번을 이미 방문했거나, 현재 번호에서 i로 갈때 비용이 더 작거나
+        if temp != state and cost <= arr[num][i]:
+            # |는 하나라도 켜져 있으면 비트마스킹 켜주기
+            result = max(result, 1 + dfs(i, temp, arr[num][i]))
+
+    return result
 
 
-N = int(input())
+N = int(stdin.readline())
 
-prices = [list(map(int, input())) for _ in range(N)]
+arr = []
+for _ in range(N):
+    info = input()
+    arr += [[]]
+    for char in info:
+        arr[-1].append(int(char))
+# 상태, 번호, 비용
+dp = [[[0] * 10 for _ in range(1 << 15)] for _ in range(15)]
+print(1 + dfs(0, 1, 0))
 
-people = 1
-
-visited = [0] * N
-visited[0] = 1
-
-for i in range(1, N):
-    visited[i] = 1
-    sell(prices[0][i], 2, i)
-    visited[i] = 0
-
-print(people)
+# 실패
