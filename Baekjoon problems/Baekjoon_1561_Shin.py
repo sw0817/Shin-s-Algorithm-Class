@@ -8,7 +8,6 @@
 
 N, M = map(int, input().split())
 attractions = list(map(int, input().split()))
-result = 1
 
 start, end = 0, 30 * 2000000000
 if N <= M:
