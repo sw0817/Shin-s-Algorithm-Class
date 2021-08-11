@@ -1,34 +1,32 @@
-# 백준 2098 욕심쟁이 판다
+# 백준 2098 외판원 순회
 # Baekjoon 2098
 
-# Created by sw0817 on 2020. 10. 26..
-# Copyright © 2020 sw0817. All rights reserved.
+# Created by sw0817 on 2021. 08. 11..
+# Copyright © 2021 sw0817. All rights reserved.
 
 # See : https://www.acmicpc.net/problem/2098
 
+def move(pre, state):
+    if state == final:
+        if arr[pre][0]:
+            return arr[pre][0]
 
-def move(v, w, cnt, sum):
-    global result
-    if cnt == N:
-        if array[v][w] != 0:
-            if sum+array[v][w] < result:
-                result = sum+array[v][w]
-            return
+    if dp[state][pre]:
+        return dp[state][pre]
 
-    for j in range(N):
-        if array[v][j] != 0 and visited[j] == 0:
-            visited[j] = 1
-            move(j, w, cnt+1, sum+array[v][j])
-            visited[j] = 0
+    cost = INF
+    for i in range(1, N):
+        temp = state | (1 << i)
+        if temp != state and arr[pre][i]:
+            cost = min(cost, move(i, temp) + arr[pre][i])
+    dp[state][pre] = cost
+    return cost
 
 
 N = int(input())
-array = [list(map(int, input().split())) for _ in range(N)]
-result = 10 ** 10
-for i in range(N):
-    start = i
-    visited = [0] * N
-    visited[start] = 1
-    move(start, start, 1, 0)
+arr = [list(map(int, input().split())) for _ in range(N)]
+INF = 1000000 * N + 1
+final = (1 << N) - 1
+dp = [[0] * N for _ in range(1 << N)]
 
-print(result)
+print(move(0, 1))
