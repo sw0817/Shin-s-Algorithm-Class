@@ -6,13 +6,11 @@
 
 # See : https://www.acmicpc.net/problem/1766
 
-def minHeap():
-    pass
-
-
-def makeInitialHeap():
+def minHeap(lst):
+    queue = [None] + lst[:]
     for i in range(len(queue)//2, 0, -1):
         minHeapify(i)
+    return queue
 
 
 def parent(idx):
@@ -97,5 +95,5 @@ for _ in range(M):
     # B를 풀기 전 몇 개의 문제를 풀어야 하는지(진입차수)
     inDegree[B] += 1
 
-queue = [None]
+queue = minHeap([])
 topologySort()
