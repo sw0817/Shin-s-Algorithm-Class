@@ -6,75 +6,44 @@
 
 # See : https://www.acmicpc.net/problem/1062
 
-from itertools import combinations
-
-
-basic = ['a', 'n', 't', 'i', 'c']
-basic = list(set(basic))
-
-
-def solve():
-    if K < 5:
-        print(0)
+def recur(idx, cnt, bit):
+    global max_cnt
+    if idx == 26 or cnt == 0:
+        ret = 0
+        for word in words:
+            for w in word:
+                if not bit & (1 << (ord(w) - 97)):
+                    break
+            else:
+                ret += 1
+        max_cnt = max(max_cnt, ret)
         return
 
-    else:
-        cnt = K - 5
+    for i in range(idx, 26):
+        if not bit & (1 << i):
+            recur(i + 1, cnt-1, bit | (1 << i))
 
-        unknown = []
-        for word in words:
-            for letter in word:
-                if not letter in basic:
-                    unknown.append(letter)
 
-        unknown = list(set(unknown))
-        # print(unknown)
-        # print(words)
-
-        result = 0
-        if len(unknown) <= cnt:
-            result = N
-
-        else:
-            idxs = [i for i in range(len(unknown))]
-            combs = combinations(idxs, cnt)
-            for comb in combs:
-                cnt = 0
-                for idx in comb:
-                    basic.append(unknown[idx])
-
-                # print(basic)
-
-                for i in range(len(words)):
-                    if len(words)-i <= result:
-                        break
-                    cnt += 1
-                    for letter in words[i]:
-                        if not letter in basic:
-                            cnt -= 1
-                            break
-
-                if result < cnt:
-                    result = cnt
-
-                if result == N:
-                    break
-
-                for idx in comb:
-                    basic.remove(unknown[idx])
-
-                # print(cnt)
-
-        print(result)
+def solution(K):
+    global max_cnt
+    if K < 5:
+        return 0
+    basic = 0
+    for alp in ['a', 'c', 't', 'i', 'n']:
+        basic |= (1 << (ord(alp) - 97))
+    K -= 5
+    for i in range(26):
+        recur(0, K, basic)
+    return max_cnt
 
 
 N, K = map(int, input().split())
-
 words = []
+for _ in range(N):
+    word = input()
+    word = set(word)
+    words.append(word)
+max_cnt = 0
+print(solution(K))
 
-for i in range(N):
-    words.append(list(set(list(input()))))
-
-solve()
-
-# 좀 더 고민해볼 것
+# 비트마스킹 풀이도 시간초과
