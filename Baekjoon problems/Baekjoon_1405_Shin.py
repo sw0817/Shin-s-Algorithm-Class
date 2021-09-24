@@ -33,18 +33,5 @@ for dr, dc, p in move:
     visited[nr][nc] = 1
     recur(nr, nc, 1, p / 100)
     visited[nr][nc] = 0
-# queue.append((N, N, 1))
-# depth = 0
-# while queue and depth < N:
-#     depth += 1
-#     for _ in range(len(queue)):
-#         r, c, temp = queue.popleft()
-#         for dr, dc, n in move:
-#             nr, nc = r + dr, c + dc
-#             if visited[nr][nc]:
-#                 result -= temp * n / 100
-#             else:
-#                 visited[nr][nc] = 1
-#                 queue.append((nr, nc, temp * n / 100))
 
 print(result)
