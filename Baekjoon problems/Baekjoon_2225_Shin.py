@@ -8,9 +8,9 @@
 
 N, K = map(int, input().split())
 
-memo = [0] * (N + K + 1)
+memo = [1] * (N + K + 1)
 
-n, memo[1] = 1, 1
+n = 1
 for i in range(2, N+K+1):
     n *= i
     memo[i] = n
