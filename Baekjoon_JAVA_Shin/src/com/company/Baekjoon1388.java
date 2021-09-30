@@ -13,6 +13,16 @@ public class Baekjoon1388 {
     static Integer[][] visited;
     static Character[][] arr;
 
+    static class Node{
+        int r;
+        int c;
+
+        Node(int _r, int _c) {
+            this.r = _r;
+            this.c = _c;
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
@@ -64,15 +74,5 @@ public class Baekjoon1388 {
                 }
             }
         }
-    }
-}
-
-class Node{
-    int r;
-    int c;
-
-    Node(int _r, int _c) {
-        this.r = _r;
-        this.c = _c;
     }
 }
