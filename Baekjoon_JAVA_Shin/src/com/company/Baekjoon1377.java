@@ -9,7 +9,6 @@ public class Baekjoon1377 {
 
     static int N;
     static Point[] arr;
-    static boolean changed;
 
     static class Point implements Comparable<Point> {
         int num;
