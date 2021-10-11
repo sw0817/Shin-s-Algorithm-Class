@@ -17,8 +17,9 @@ for i in range(N):
         nxt[j][0] = max(dp[j][0], dp[j][1], dp[j][2])
         nxt[j][1] = dp[j-1][0] if j else -1
         nxt[j][2] = -1
+
         if 1 < j and dp[j-1][1] != -1:
-            nxt[j][2] = max(nxt[j][2], dp[j-1][1] + recovery)
+            nxt[j][2] = dp[j-1][1] + recovery
         if 1 < j and dp[j-1][2] != -1:
             nxt[j][2] = max(nxt[j][2], dp[j-1][2] + recovery)
 
