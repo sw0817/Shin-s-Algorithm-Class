@@ -11,7 +11,7 @@ import heapq
 
 def prim(g, start):
     visited[start] = 1
-    candidate = graph[start]
+    candidate = g[start]
     heapq.heapify(candidate)
     mst = []
     total_weight = 0
