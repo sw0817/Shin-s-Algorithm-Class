@@ -13,7 +13,7 @@ def recur(w, l_w):
         result = l_w-1
         ret = w
 
-    if l_w == 80:
+    if l_w == 81:
         return
 
     for target in words[l_w]:
