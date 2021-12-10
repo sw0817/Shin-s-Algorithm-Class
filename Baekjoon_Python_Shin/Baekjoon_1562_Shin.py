@@ -6,35 +6,21 @@
 
 # See : https://www.acmicpc.net/problem/1562
 
-from collections import deque
-
 N = int(input())
-queue = deque(['1', '2', '3', '4', '5', '6', '7', '8', '9'])
-cnt = 0
-result = 0
-while queue:
-    cnt += 1
-    if cnt == N:
-        for _ in range(len(queue)):
-            num = queue.popleft()
-            if len(set(list(num))) == 10:
-                result += 1
-    for _ in range(len(queue)):
-        num = queue.popleft()
-        l = len(set(list(num)))
-        if l == 10:
-            result += 1
-            continue
-        if l + N - cnt < 10:
-            continue
-        n = int(num[-1])
-        if n == 0:
-            queue.append(num + '1')
-        elif n == 9:
-            queue.append(num + '8')
-        else:
-            queue.append(num + str(n-1))
-            queue.append(num + str(n+1))
 
-print(result % 1000000000)
-# 아직 메모리 초과 못 잡음
+dp = [[0] * 1024 for _ in range(10)]
+
+for i in range(1, 10):
+    dp[i][2 ** i] = 1
+
+for i in range(1, N):
+    n_dp = [[0] * 1024 for _ in range(10)]
+    for r in range(10):
+        for c in range(1024):
+            if r < 9:
+                n_dp[r][c | (1 << r)] = (n_dp[r][c | (1 << r)] + dp[r+1][c]) % 1000000000
+            if r > 0:
+                n_dp[r][c | (1 << r)] = (n_dp[r][c | (1 << r)] + dp[r-1][c]) % 1000000000
+    dp = n_dp
+
+print(sum([dp[i][1023] for i in range(10)]) % 1000000000)
