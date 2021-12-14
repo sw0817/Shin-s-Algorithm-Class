@@ -6,6 +6,7 @@
 
 # See : https://www.acmicpc.net/problem/14500
 
+# 모든 테트로미노 모양 배열
 tetromino = [
     [
         [1, 1, 1, 1],
@@ -95,6 +96,8 @@ tetromino = [
 ]
 
 N, M = map(int, input().split())
+
+# 테트로미노 모양이 4x4 까지 있으므로 우측, 하단에 길이 3만큼 0포인트 배열 추가
 arr = []
 for _ in range(N):
     row = list(map(int, input().split())) + [0, 0, 0]
@@ -105,6 +108,7 @@ for _ in range(3):
 result = 0
 for i in range(N):
     for j in range(M):
+        # 모든 위치에서 모든 테트로미노에 대해 발생하는 점수 탐색
         for tet in tetromino:
             r, c = len(tet), len(tet[0])
             cur = 0

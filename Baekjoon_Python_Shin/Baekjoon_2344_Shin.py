@@ -11,7 +11,11 @@ arr = []
 for _ in range(N):
     arr.append(list(map(int, input().split())))
 
+# result[i] = 입구 i+1번이 만나는 출구 번호 (서로 대칭)
 result = [0] * (2 * N + 2 * M)
+
+# 서로 대칭이므로 왼쪽, 하단 입구만 탐색하여 대칭 작성함
+# 시뮬레이션
 for i in range(N):
     right = True
     r, c = i, 0

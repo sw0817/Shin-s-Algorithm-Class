@@ -10,6 +10,7 @@ import math
 
 N, K = map(int, input().split())
 caffeine = [0] + list(map(int, input().split()))
+# i 만큼의 카페인 섭취를 위해 마셔야하는 커피 종류 수 배열
 dp = [0] + [math.inf] * K
 for i in range(1, N+1):
     c = caffeine[i]
