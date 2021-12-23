@@ -10,17 +10,17 @@ def cal(n, m, dir):
     ret = dp[n][m][dir]
     if ret != -1:
         return ret
-    if n == N + 1:
+    if n == N:
         ret = 1
         return ret
 
     ret = 0
 
     if dir == 2:
-        ret += cal(n + 1, m, 0)
+        ret += cal(n+1, m, 0)
         ret %= mod
-        for i in range(m + 1, M + 1):
-            ret += cal(n + 1, i, 2)
+        for i in range(m+1, M+1):
+            ret += cal(n+1, i, 2)
             ret %= mod
     else:
         for i in range(1, m):
@@ -37,12 +37,12 @@ def cal(n, m, dir):
 
 
 N, M = map(int, input().split())
-dp = [[[-1] * 3 for _ in range(M+2)] for _ in range(N+2)]
+dp = [[[-1] * 3 for _ in range(M+1)] for _ in range(N+1)]
 mod = 998244353
 
 ret = 0
 for i in range(1, M+1):
-    ret += cal(2, i, 0)
+    ret += cal(1, i, 0)
     ret %= mod
 
 print(ret)
