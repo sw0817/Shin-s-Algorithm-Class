@@ -45,21 +45,64 @@ cnt = 0
 visited = [[0] * M for _ in range(N)]
 queue = deque()
 findFire()
-fires = [0] * (cnt+1)
+# for row in visited:
+#     print(row)
+fires = [set() for _ in range(cnt+1)]
 day = 0
-while queue and cnt:
+result = [0, size]
+while queue:
+    meet = False
     for _ in range(len(queue)):
         r, c = queue.popleft()
         f = visited[r][c]
         for dr, dc in move:
             nr, nc = r + dr, c + dc
-            if 0 <= nr < N and 0 <= nc < M and not arr[nr][nc] == '2':
+            if 0 <= nr < N and 0 <= nc < M and not arr[nr][nc] == '2' and not visited[nr][nc] == f:
                 if not visited[nr][nc]:
                     queue.append((nr, nc))
                     visited[nr][nc] = f
                     size += 1
-                # 이 외에 다른 불과 만났을 때 합쳐진 불 번호를 비트마스킹 표현할 수 있다.
-                # 가장 외곽의 불길을 저장해두어 표현을 바꿔준다.
-    day += 1
+                    for dr2, dc2 in move:
+                        nnr, nnc = nr + dr2, nc + dc2
+                        if 0 <= nnr < N and 0 <= nnc < M and not arr[nnr][nnc] == '2':
+                            num = visited[nnr][nnc]
+                            if not num:
+                                continue
+                            if not num == f and not num in fires[f]:
+                                fires[num].add(f)
+                                fires[f].add(num)
+                                for vf in fires[f]:
+                                    fires[vf] |= fires[num]
+                                    fires[vf].discard(vf)
+                                    if num != vf:
+                                        fires[num].add(vf)
+                                for vf in fires[f]:
+                                    fires[vf] |= fires[num]
+                                    fires[vf].discard(vf)
+                                    if num != vf:
+                                        fires[num].add(vf)
+                                meet = True
+                # else:
+                #     cf = visited[nr][nc]
+                #     if not cf in fires[f]:
+                #         for vf in fires[f]:
+                #             fires[vf].add(cf)
+                #             fires[cf].add(vf)
+                #         fires[cf].add(f)
+                #         fires[f].add(cf)
+                #         meet = True
 
-# print(size, cnt)
+    day += 1
+    # print(day)
+    # for row in visited:
+    #     print(row)
+    # print(fires)
+    # print()
+    if meet:
+        result = [day, size]
+
+print(*result)
+print(fires)
+# for row in visited:
+#     print(row)
+# print()
