@@ -9,11 +9,11 @@
 N = int(input())
 if N == 1:
     print(1)
+elif N == 2:
+    print(2)
 else:
-    dp = [0] * (N+1)
-    dp[1], dp[2] = 1, 2
-    if 2 < N:
-        for i in range(3, N+1):
-            dp[i] = (dp[i-2] + dp[i-1]) % 15746
-
-    print(dp[N])
+    a, b, c = 1, 2, 3
+    for i in range(3, N+1):
+        c = (a + b) % 15746
+        a, b = b, c
+    print(c)
