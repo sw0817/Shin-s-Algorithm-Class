@@ -8,6 +8,7 @@
 
 import math
 from collections import deque
+from itertools import permutations, combinations
 
 def findMinDis(n, target):
     global minDisList
@@ -21,24 +22,6 @@ def findMinDis(n, target):
             if 0 <= nr < 5 and 0 <= nc < 5 and cnt + 1 < minDisList[n][nr][nc]:
                 minDisList[n][nr][nc] = cnt + 1
                 queue.append([nr, nc, cnt + 1])
-
-
-def findLinkedComb(k, n, l_idx, resultList):
-    global linkedComb
-    if k == n:
-        if linkedCheck(resultList, n):
-            linkedComb.append(resultList)
-        return
-
-    for i in range(5):
-        if i < l_idx[0]:
-            continue
-        for j in range(5):
-            if i == l_idx[0] and j <= l_idx[1]:
-                continue
-            nxtList = resultList[:]
-            nxtList.append([i, j])
-            findLinkedComb(k + 1, n, [i, j], nxtList)
 
 
 def linkedCheck(arr, n):
@@ -58,26 +41,17 @@ def linkedCheck(arr, n):
     return False
 
 
-def findOrder(n, result):
-    global order
-    if len(result) == n:
-        order.append(result)
-        return
-
-    for i in range(n):
-        if i not in result:
-            findOrder(n, result + [i])
-
-
 move = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 inf = math.inf
 answer = inf
 targetList = []
+allPosition = []
 linkedComb = []
-order = []
+
 for i in range(5):
     info = list(input())
     for j in range(5):
+        allPosition.append([i, j])
         if info[j] == '*':
             targetList.append([i, j])
 
@@ -86,11 +60,13 @@ minDisList = [[[inf] * 5 for _ in range(5)] for _ in range(len(targetList))]
 for n in range(len(targetList)):
     findMinDis(n, targetList[n])
 
-findLinkedComb(0, len(targetList), [-1, -1], [])
-findOrder(len(targetList), [])
+allPosition = combinations(allPosition, len(targetList))
+for comb in allPosition:
+    if linkedCheck(comb, len(targetList)):
+        linkedComb.append(comb)
 
 for comb in linkedComb:
-    for nums in order:
+    for nums in permutations([i for i in range(len(targetList))]):
         cur = 0
         for idx, num in enumerate(nums):
             r, c = comb[idx][0], comb[idx][1]
