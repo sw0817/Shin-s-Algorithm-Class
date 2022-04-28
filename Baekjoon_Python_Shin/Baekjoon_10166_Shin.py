@@ -6,17 +6,16 @@
 
 # See : https://www.acmicpc.net/problem/10166
 
-from math import gcd
-
 D1, D2 = map(int, input().split())
-visited = [[0] * 2001 for _ in range(2001)]
-result = 0
+degree = [i for i in range(2001)]
 
-for i in range(D1, D2+1):
-    for j in range(1, i+1):
-        g = gcd(i, j)
-        if not visited[i//g][j//g]:
-            visited[i//g][j//g] = 1
-            result += 1
+add = 0
+for i in range(1, D2 + 1):
+    first = True
+    for j in range(i * 2, D2 + 1, i):
+        if first and D1 <= j and i < D1:
+            add += degree[i]
+            first = False
+        degree[j] -= degree[i]
 
-print(result)
+print(sum(degree[D1:D2 + 1]) + add)
