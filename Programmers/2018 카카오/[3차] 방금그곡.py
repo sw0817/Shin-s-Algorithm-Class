@@ -46,7 +46,7 @@ def solution(m, musicinfos):
         if d <= l:
             info = info[:d]
         else:
-            info = info * (d // l) + info[l % d:]
+            info = info * (d // l) + info[:l % d]
 
         if m in info:
             if title in music_dict:
