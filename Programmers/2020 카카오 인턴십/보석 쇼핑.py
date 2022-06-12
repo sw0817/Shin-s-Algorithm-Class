@@ -7,39 +7,35 @@ def solution(gems):
         return [1, 1]
     answer = [1, l]
     min_l = l
-    for i in range(c):
-        have[names[i]] = (0, i)
-
-    visited = [0] * c
     s, e = 0, 0
-    cnt, idx = have[gems[e]]
-    visited[idx] = 1
-    have[gems[e]] = (cnt + 1, idx)
+    have[gems[e]] = 1
     e += 1
     while e < l:
-        if sum(visited) < c:
-            cnt, idx = have[gems[e]]
-            visited[idx] = 1
-            have[gems[e]] = (cnt + 1, idx)
+        if len(have) != c:
+            if gems[e] in have:
+                have[gems[e]] += 1
+            else:
+                have[gems[e]] = 1
             e += 1
         else:
-            cnt, idx = have[gems[s]]
             if e - s < min_l:
                 min_l = e - s
                 answer = [s + 1, e]
-            have[gems[s]] = (cnt - 1, idx)
-            if cnt == 1:
-                visited[idx] = 0
+            if have[gems[s]] == 1:
+                del have[gems[s]]
+            else:
+                have[gems[s]] -= 1
             s += 1
 
-    while sum(visited) == c:
-        cnt, idx = have[gems[s]]
+    while len(have) == c:
         if e - s < min_l:
             min_l = e - s
             answer = [s + 1, e]
-        have[gems[s]] = (cnt - 1, idx)
-        if cnt == 1:
-            visited[idx] = 0
+
+        if have[gems[s]] == 1:
+            del have[gems[s]]
+        else:
+            have[gems[s]] -= 1
         s += 1
 
     return answer
