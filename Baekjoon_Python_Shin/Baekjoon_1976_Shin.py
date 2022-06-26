@@ -53,4 +53,4 @@ for i in range(1, len(trip)):
 
 print(check())
 
-# 다시 풀기 .,
+# 다시 풀기 .,asd
