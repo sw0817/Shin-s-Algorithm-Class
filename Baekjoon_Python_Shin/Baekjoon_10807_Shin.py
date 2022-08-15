@@ -6,9 +6,13 @@
 
 # See : https://www.acmicpc.net/problem/10807
 
-cnt = [0] * 101
+cnt = dict()
 input()
 for n in map(int, input().split()):
-    cnt[n] += 1
+    if n in cnt:
+        cnt[n] += 1
+    else:
+        cnt[n] = 1
 
-print(cnt[int(input())])
+n = int(input())
+print(cnt[n] if n in cnt else 0)
