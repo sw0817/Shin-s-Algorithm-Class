@@ -6,29 +6,32 @@
 
 # See : https://www.acmicpc.net/problem/1756
 
-D, N = map(int, input().split())
-ds = list(map(int, input().split()))
-pizza = list(map(int, input().split()))
+def solution():
+    D, N = map(int, input().split())
+    ds = list(map(int, input().split()))
+    pizza = list(map(int, input().split()))
 
-cur = ds[0]
-for i in range(1, D):
-    if ds[i] < cur:
-        cur = ds[i]
-    else:
-        ds[i] = cur
+    cur = ds[0]
+    for i in range(1, D):
+        if ds[i] < cur:
+            cur = ds[i]
+        else:
+            ds[i] = cur
 
-c = 0
-for i in range(N):
-    p = pizza[i]
-    while ds and ds[-1] < p:
+    c = 0
+    for i in range(N):
+        p = pizza[i]
+        while ds and ds[-1] < p:
+            c += 1
+            ds.pop(-1)
+
+        if not ds:
+            print(0)
+            return
+
         c += 1
         ds.pop(-1)
 
-    if not ds:
-        print(0)
-        break
+    print(D - c + 1)
 
-    c += 1
-    ds.pop(-1)
-
-print(D - c + 1)
+solution()
