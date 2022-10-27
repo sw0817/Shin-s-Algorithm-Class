@@ -6,41 +6,22 @@
 
 # See : https://www.acmicpc.net/problem/1086
 
-from itertools import permutations
-import fractions
+import math
 
 N = int(input())
-
-t_set = []
-
-for _ in range(N):
-    t_set.append(int(input()))
-
+nums = [int(input()) for _ in range(N)]
 K = int(input())
+R = [[(j * 10 ** len(str(nums[i])) + nums[i]) % K for j in range(K)] for i in range(N)]
+dp = [[0] * K for _ in range(1 << N)]
+dp[0][0] = 1
 
-pers = permutations(t_set, N)
-mom = 0
-possible = 0
-
-for per in pers:
-    mom += 1
-    # print(per)
-    target = ''
-
-    for num in per:
-        target = target + str(num)
-
-    num = int(target)
-    if num % K == 0:
-        possible += 1
-
-# print(possible)
-# print(mom)
-
-a = fractions.Fraction(possible, mom)
-possible = a.numerator
-mom = a.denominator
-
-print('{}/{}'.format(possible, mom))
-
-# 아직 실패
+for b in range(1 << N):
+    for i in range(N):
+        if b & (1 << i):
+            continue
+        for j in range(K):
+            dp[b | (1 << i)][R[i][j]] += dp[b][j]
+p = dp[(1 << N)-1][0]
+q = sum(dp[(1 << N) - 1])
+g = math.gcd(p, q)
+print('{}/{}'.format(p // g, q // g))
